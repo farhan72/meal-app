@@ -11,12 +11,12 @@ import { unslugify } from "@/lib/utils";
 import { SearchInput } from "@/components/molecules/SearchInput";
 
 interface IngredientPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ "ingredient-name": string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({ params }: IngredientPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { "ingredient-name": slug } = await params;
   const decodedIngredient = unslugify(slug);
 
   return {
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: IngredientPageProps): Promise
 }
 
 export default async function IngredientMealsPage({ params, searchParams }: IngredientPageProps) {
-  const { slug } = await params;
+  const { "ingredient-name": slug } = await params;
   const { q } = await searchParams;
   const decodedIngredient = unslugify(slug);
   const query = typeof q === "string" ? q : "";

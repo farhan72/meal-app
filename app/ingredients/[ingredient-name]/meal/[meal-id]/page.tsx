@@ -10,11 +10,11 @@ import { Breadcrumb } from "@/components/molecules/Breadcrumb";
 import { unslugify } from "@/lib/utils";
 
 interface MealPageProps {
-  params: Promise<{ slug: string; id: string }>;
+  params: Promise<{ "ingredient-name": string; "meal-id": string }>;
 }
 
 export async function generateMetadata({ params }: MealPageProps): Promise<Metadata> {
-  const { id: hashedId } = await params;
+  const { "meal-id": hashedId } = await params;
   const realId = decodeId(hashedId);
 
   if (!realId) return { title: "Meal Not Found" };
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: MealPageProps): Promise<Metad
 }
 
 export default async function MealPage({ params }: MealPageProps) {
-  const { id: hashedId, slug } = await params;
+  const { "meal-id": hashedId, "ingredient-name": slug } = await params;
   
   // Decode the secure hashed ID
   const realId = decodeId(hashedId);
