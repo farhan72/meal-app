@@ -61,6 +61,7 @@ export default async function MealPage({ params }: MealPageProps) {
       >
         <MealDetailSection mealId={realId} />
         {meal.strYoutube && <VideoSection youtubeUrl={meal.strYoutube} />}
+
       </GridLayout>
     </MainLayout>
   );

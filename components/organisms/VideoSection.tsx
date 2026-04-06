@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Play } from "lucide-react";
 import { Typography } from "@/components/atoms/Typography";
 
@@ -10,6 +10,23 @@ interface VideoSectionProps {
 
 export function VideoSection({ youtubeUrl }: VideoSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { rootMargin: "0px", threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   if (!youtubeUrl) return null;
 
@@ -21,7 +38,8 @@ export function VideoSection({ youtubeUrl }: VideoSectionProps) {
   const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
-    <div className="mt-16 flex flex-col gap-6">
+    <>
+      <div id="video-section" ref={sectionRef} className="mt-16 flex flex-col gap-6 scroll-mt-24">
       <Typography variant="h3">Video Tutorial</Typography>
       <div className="relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg bg-black border border-border-soft">
         {isPlaying ? (
@@ -51,5 +69,20 @@ export function VideoSection({ youtubeUrl }: VideoSectionProps) {
         )}
       </div>
     </div>
+
+      <a
+        href="#video-section"
+        className={`group fixed bottom-8 right-8 z-50 flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-white shadow-xl shadow-accent/20 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:bg-accent/90 hover:shadow-2xl hover:shadow-accent/40 active:scale-95 ${
+          isIntersecting ? "translate-y-20 opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+        }`}
+        aria-label="Scroll to video tutorial"
+      >
+        <div className="relative">
+          <Play className="h-5 w-5 fill-white text-white transition-transform group-hover:scale-110" />
+          <span className="absolute inset-0 block h-full w-full animate-ping rounded-full bg-white opacity-20"></span>
+        </div>
+        <span className="font-semibold tracking-wide">See Tutorial</span>
+      </a>
+    </>
   );
 }
