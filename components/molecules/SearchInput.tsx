@@ -23,16 +23,18 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
     const timeoutId = setTimeout(() => {
       const currentQuery = searchParams.get("q") || "";
 
-      if (query !== currentQuery) {
+      if ((query !== currentQuery) && (query?.length > 2 || query?.length === 0)) {
         const params = new URLSearchParams(searchParams.toString());
-        if (query?.length > 2) {
+        if (query) {
           params.set("q", query.trim());
         } else {
           params.delete("q");
         }
 
         startTransition(() => {
-          router.push(`${pathname}?${params.toString()}`);
+          const queryString = params.toString();
+          const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
+          router.push(targetUrl, { scroll: false });
         });
       }
     }, 500);
