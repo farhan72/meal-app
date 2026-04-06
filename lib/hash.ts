@@ -2,7 +2,7 @@ import Hashids from 'hashids';
 
 // Salt ensures unique deterministic hashes.
 // For production use process.env.HASH_SALT.
-const HASH_SALT = process.env.HASH_SALT || "food-app-secure-salt-x9v2";
+const HASH_SALT = process.env.HASH_SALT || "meal-app-secure-salt-x9v2";
 // The ID will be around 8 characters long, well within the max 10 characters request.
 const MIN_LENGTH = 8; 
 

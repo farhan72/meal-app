@@ -21,6 +21,7 @@ export function IngredientCard({ name }: IngredientCardProps) {
             alt={name}
             width={120}
             height={120}
+            sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, (max-width: 1280px) 20vw, 16vw"
             className="object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300"
             wrapperClassName="h-28 w-full flex justify-center items-center"
           />

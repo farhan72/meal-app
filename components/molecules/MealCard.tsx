@@ -23,6 +23,7 @@ export function MealCard({ id, title, image, category }: MealCardProps) {
           alt={title}
           width={400}
           height={300}
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
           className="object-cover w-full h-full group-hover:scale-105 group-hover:opacity-90 transition-all duration-500"
           wrapperClassName="aspect-square sm:aspect-[4/3] w-full bg-gray-100"
         />

@@ -21,8 +21,7 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const currentQuery = searchParams.get("q") || "";
-      
-      // Only push to router if the query actually changed
+
       if (query !== currentQuery) {
         const params = new URLSearchParams(searchParams.toString());
         if (query) {
@@ -30,17 +29,17 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
         } else {
           params.delete("q");
         }
-        
+
         startTransition(() => {
           router.push(`${pathname}?${params.toString()}`);
         });
       }
-    }, 1000);
+    }, 350); // Reduced from 1000ms for snappier results
 
     return () => clearTimeout(timeoutId);
   }, [query, searchParams, router, pathname]);
 
-  // Sync internal state with URL changes (e.g., back/forward)
+  // Sync internal state with URL changes (e.g., back/forward navigation)
   useEffect(() => {
     const urlQuery = searchParams.get("q") || "";
     if (urlQuery !== query) {
