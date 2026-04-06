@@ -25,7 +25,11 @@ export function MainLayout({ children }: MainLayoutProps) {
               TheMealDB
             </a>
           </p>
-          <p className="text-xs text-gray-400">Built with Next.js · Atomic Design</p>
+          <p className="text-xs text-gray-400">
+            Created by{" "}
+            <span className="font-medium text-gray-500">Farhan Alfiy Ibnu Nabil</span>
+            {" · "}Built with Next.js · Atomic Design
+          </p>
         </div>
       </footer>
     </div>
