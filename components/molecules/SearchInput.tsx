@@ -23,7 +23,7 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
     const timeoutId = setTimeout(() => {
       const currentQuery = searchParams.get("q") || "";
 
-      if ((query !== currentQuery) && (query?.length > 2 || !query)) {
+      if ((query !== currentQuery) && (query?.length > 2 || query?.length === 0)) {
         const params = new URLSearchParams(searchParams.toString());
         if (query) {
           params.set("q", query.trim());
