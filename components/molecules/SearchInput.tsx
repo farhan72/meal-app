@@ -27,15 +27,15 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
         const params = new URLSearchParams(searchParams.toString());
         if (query) {
           params.set("q", query.trim());
+          startTransition(() => {
+            const queryString = params.toString();
+            const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
+            router.push(targetUrl, { scroll: false });
+          });
         } else {
           params.delete("q");
         }
 
-        startTransition(() => {
-          const queryString = params.toString();
-          const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
-          router.push(targetUrl, { scroll: false });
-        });
       }
     }, 500);
     return () => clearTimeout(timeoutId);
@@ -68,8 +68,11 @@ export function SearchInput({ placeholder = "Search for a meal...", className }:
       />
       {query && (
         <button
-          onClick={() => setQuery("")}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-secondary focus:outline-none"
+          onClick={() => {
+            setQuery("");
+            window.location.href = pathname;
+          }}
+          className="absolute right-3 top-1/2 cursor-pointer -translate-y-1/2 text-muted hover:text-secondary focus:outline-none"
         >
           <X className="h-4 w-4" />
         </button>
