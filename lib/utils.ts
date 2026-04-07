@@ -30,3 +30,10 @@ export function toTitleCase(text: string | null): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+export function scrollToTop(smooth: boolean = true): void {
+  window?.scrollTo({
+    top: 0,
+    behavior: smooth ? "smooth" : "instant",
+  });
+}
